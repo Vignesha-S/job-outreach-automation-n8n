@@ -1,0 +1,390 @@
+{
+  "name": "Daily Personalized Job Outreach Email Automation with Gmail and Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1nSmGVjKD1IHy6nfbr3dFWA7VD4DEpYmy5B__sc1AIMo",
+          "mode": "list",
+          "cachedResultName": "HR_Lists",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nSmGVjKD1IHy6nfbr3dFWA7VD4DEpYmy5B__sc1AIMo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1743526746,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nSmGVjKD1IHy6nfbr3dFWA7VD4DEpYmy5B__sc1AIMo/edit#gid=1743526746"
+        },
+        "options": {}
+      },
+      "id": "df58231a-f7a1-4f3d-8443-3222364b9fef",
+      "name": "Read Pending Contacts",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -736,
+        384
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5CFtf8PXdYhQhVvB",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ce7e7dce-a449-41c0-b42a-5fa416917ddf",
+      "name": "Process One by One",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -288,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "=Exploring Data / AI Opportunities at {{ $json.Company }}",
+        "message": "=Hi {{$json.Name}},<br><br>\n\nI hope you're doing well.<br><br>\n\nI'm reaching out to express my interest in Data Analyst / AI roles at {{$json.Company}}. I have hands-on experience in Python, SQL, and Machine Learning, along with practical data projects.<br><br>\n\nIf there are any suitable openings, I would greatly appreciate the opportunity to apply. I would be glad to share my resume and discuss further if there is a suitable opportunity.<br><br>\n\nBest regards,<br>\nVignesha S<br>\nChennai",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "id": "14d5aa14-b391-4794-91c9-424c6b4c219f",
+      "name": "Send Personalized Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        304
+      ],
+      "webhookId": "b99458a6-e2a5-4bd9-9f02-a47eea40343a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Yww1dkrKNdSQxiaJ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "b6f22041-f383-4f40-b3e7-82b78eeeda39",
+      "name": "Wait 60 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        384,
+        304
+      ],
+      "webhookId": "111f55e8-ecc0-445d-894b-1c6a5204356e"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1nSmGVjKD1IHy6nfbr3dFWA7VD4DEpYmy5B__sc1AIMo",
+          "mode": "list",
+          "cachedResultName": "HR_Lists",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nSmGVjKD1IHy6nfbr3dFWA7VD4DEpYmy5B__sc1AIMo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1743526746,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nSmGVjKD1IHy6nfbr3dFWA7VD4DEpYmy5B__sc1AIMo/edit#gid=1743526746"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Download Resume from Google Drive').item.json.row_number }}",
+            "Status": "Sent"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "31cab066-ba70-41b9-b341-b0b6153189da",
+      "name": "Update Status to Sent",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        608,
+        384
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5CFtf8PXdYhQhVvB",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "28d031e3-7a21-4fc4-91e5-529c5909b426",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1eqMjbqKsNInzHpRSAxqDaHkE21800kNq",
+          "mode": "id"
+        },
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "id": "e4bc6914-d4ac-4a19-a901-223aa5d67589",
+      "name": "Download Resume from Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -64,
+        304
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "QWC1Zlk5Y46QIplH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Status }}",
+              "value2": "Pending"
+            }
+          ]
+        }
+      },
+      "id": "52cf341a-ccc0-48ed-b66f-c17f304cce31",
+      "name": "Filter Pending Only",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "maxItems": 30
+      },
+      "id": "60a913d9-fdae-4fa9-b8dd-6cc14cc5fd55",
+      "name": "Limit to 100 Rows",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        384
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Read Pending Contacts": {
+      "main": [
+        [
+          {
+            "node": "Filter Pending Only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process One by One": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Download Resume from Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Personalized Email": {
+      "main": [
+        [
+          {
+            "node": "Wait 60 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 60 Seconds": {
+      "main": [
+        [
+          {
+            "node": "Update Status to Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Status to Sent": {
+      "main": [
+        [
+          {
+            "node": "Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Pending Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Resume from Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Send Personalized Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Pending Only": {
+      "main": [
+        [
+          {
+            "node": "Limit to 100 Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit to 100 Rows": {
+      "main": [
+        [
+          {
+            "node": "Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c2b65c29-a974-4440-8e9d-66bd9cebf222",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a3ec941e519bc3d4d016efdc993b168f87c508eb59a9bc392efb776faff92ca8"
+  },
+  "id": "GViPYVtczf2SVht5",
+  "tags": []
+}
