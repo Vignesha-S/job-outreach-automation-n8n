@@ -28,41 +28,37 @@ The system uses **n8n workflow automation** to:
 
 ---
 
-## Workflow Architecture
+## System Architecture
 
+![System Architecture](architecture.png)
 
-```
+---
 
-Manual Trigger
-↓
-Read Google Sheets
-↓
-Filter (Status = Pending)
-↓
-Limit Rows (80)
-↓
-Split In Batches
-↓
-Download Resume (Google Drive)
-↓
-Send Email (Gmail)
-↓
-Wait 60 Seconds
-↓
-Update Status → Sent
+## Workflow Overview
 
-```
+### n8n Workflow
+![Workflow](screenshots/workflow.png)
+
+---
+
+## Example Outputs
+
+### Sample Email Sent
+![Email Example](screenshots/email_example.png)
+
+### Contact Sheet Structure
+![Sheet Example](screenshots/sheet_example.png)
 
 ---
 
 ## Technologies Used
 
-- n8n (Workflow Automation)
-- Google Sheets API
-- Gmail API
-- Google Drive API
-- OAuth2 Authentication
-- Docker / Local n8n Environment
+- **n8n** (Workflow Automation)
+- **Google Sheets API**
+- **Gmail API**
+- **Google Drive API**
+- **OAuth2 Authentication**
+- **Docker / Local n8n Environment**
 
 ---
 
@@ -73,6 +69,7 @@ Update Status → Sent
 Emails are dynamically generated using data from Google Sheets.
 
 Example:
+
 
 ```
 
@@ -107,7 +104,7 @@ This prevents duplicate outreach.
 
 ### Email Rate Limiting
 
-To avoid spam detection and Gmail sending limits, the workflow waits:
+To avoid Gmail spam detection and sending limits, the workflow waits:
 
 ```
 
@@ -123,14 +120,23 @@ The system automatically downloads a resume from Google Drive and attaches it to
 
 ---
 
-## Example Use Case
+## Repository Structure
 
-This automation workflow was used to streamline job outreach while searching for opportunities in:
+```
 
-- Data Analytics
-- Artificial Intelligence
-- Machine Learning
-- Data Science
+job-outreach-automation-n8n
+│
+├── README.md
+├── workflow.json
+├── architecture.png
+├── sample_contacts_sheet.csv
+│
+└── screenshots
+├── workflow.png
+├── email_example.png
+└── sheet_example.png
+
+```
 
 ---
 
@@ -140,12 +146,17 @@ This repository includes a **sample contact sheet with placeholder data** to dem
 
 Real contact information used in the automation is not included to protect privacy.
 
-Example structure:
+---
 
-| Name | Email | Title | Company | Status |
-|-----|-----|-----|-----|-----|
-| John Smith | john.smith@example.com | HR Manager | TechCorp | Pending |
-| Sarah Lee | sarah.lee@example.com | Talent Partner | DataWorks | Pending |
+## How to Use
+
+1. Import `workflow.json` into your n8n instance.
+2. Connect your credentials for:
+   - Gmail
+   - Google Sheets
+   - Google Drive
+3. Prepare a contact sheet following the structure in `sample_contacts_sheet.csv`.
+4. Run the workflow manually to start sending personalized outreach emails.
 
 ---
 
@@ -163,4 +174,3 @@ Example structure:
 
 **Vignesha S**  
 Data Analyst | AI & Automation Enthusiast
-
